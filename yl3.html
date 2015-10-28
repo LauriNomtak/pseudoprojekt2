@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+    <input type="text" id="city" placeholder="City">
+    <button onclick="get_forecast()">Submit</button>
+    <br>
+
+<span id="forecast">Ilmateade</span>
+
+<script>
+
+    function get_forecast() {
+        var city = $('#city').val();
+        $.get(
+                "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=metric&APPID=fc557efd75fb411009836968b0bd2f19",
+                function (data) {
+                    var weather_forecast = data.weather[0].description;
+                    $('#forecast').html(weather_forecast);
+                }
+        );
+    }
+
+</script>
+
+</body>
+</html>
