@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <title></title>
+</head>
+<body>
+
+Search artist: <input type="text" id="text">
+<button onclick="search()" type="submit" id="submit">Convert</button>
+<br><br>
+
+<div id="content">
+    <div id="artist">
+        <p><strong>Bio:</strong></p>
+        <span id="bio"></span> <br>
+        <a id=url href="">Source</a><br><br>
+
+        <p><strong>Artist location:</strong></p>
+        <span id="country"></span> <br>
+        <span id="location"></span> <br><br>
+    </div>
+
+
+    <div id="songs">
+        <p><strong>Songs:</strong></p>
+    </div>
+</div>
+</body>
+</html>
+
+
+<script>
+
+    $('#content').hide();
+
+    function search() {
+        var artist = $('#text').val();
+        $.get(
+                "http://developer.echonest.com/api/v4/artist/profile?" +
+                "api_key=5ZE8DYEPIMRGPTYEN&id=ARH6W4X1187B99274F&format=json&" +
+                "bucket=biographies&" +
+                "bucket=genre&" +
+                "bucket=artist_location&" +
+                "bucket=years_active&bucket=songs",
+
+                function (data) {
+                    var bio = data.response.artist.biographies[3].text;
+                    var url = data.response.artist.biographies[3].url;
+                    var country = data.response.artist.artist_location.country;
+                    var location = data.response.artist.artist_location.location;
+                    var songs = data.response.artist.songs;
+
+                    $('#bio').html(bio);
+                    $('#url').attr("href", url );
+                    $('#country').html(country);
+                    $('#location').html(location);
+
+
+                    console.log(songs);
+
+                    songs.forEach(function(entry) {
+
+                        var song = entry.title;
+
+                        Array.prototype.song = function() {
+                            var songs = [];
+                            for (var i = 0; i < this.length; i++) {
+                                var current = this[i];
+                                if (song.indexOf(current) < 0) song.push(current);
+                            }
+                            return song;
+                        };
+
+                        var para = document.createElement("P");
+                        var t = document.createTextNode(song);
+                        para.appendChild(t);
+                        document.getElementById("songs").appendChild(para);
+                    });
+
+                    $('#content').show();
+                }
+        );
+    }
+</script>
+
