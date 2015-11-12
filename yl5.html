@@ -13,6 +13,7 @@ Search artist: <input type="text" id="text">
 
 <div id="content">
     <div id="artist">
+        <h2 id="name"></h2>
         <p><strong>Bio:</strong></p>
         <span id="bio"></span> <br>
         <a id=url href="">Source</a><br><br>
@@ -21,63 +22,53 @@ Search artist: <input type="text" id="text">
         <span id="country"></span> <br>
         <span id="location"></span> <br><br>
     </div>
-
-
-    <div id="songs">
-        <p><strong>Songs:</strong></p>
-    </div>
-</div>
+ </div>
 </body>
 </html>
 
 
 <script>
 
+
+
     $('#content').hide();
 
+
     function search() {
+        $('#content').reset;
         var artist = $('#text').val();
         $.get(
-                "http://developer.echonest.com/api/v4/artist/profile?" +
-                "api_key=5ZE8DYEPIMRGPTYEN&id=ARH6W4X1187B99274F&format=json&" +
+                "http://developer.echonest.com/api/v4/artist/profile?name="+ artist + "&api_key=5ZE8DYEPIMRGPTYEN&format=json&" +
                 "bucket=biographies&" +
                 "bucket=genre&" +
                 "bucket=artist_location&" +
                 "bucket=years_active&bucket=songs",
 
                 function (data) {
-                    var bio = data.response.artist.biographies[3].text;
-                    var url = data.response.artist.biographies[3].url;
+
+                    var siteId;
+                    var i;
+
+                    for (i=0; i<=data.response.artist.biographies.length; i++) {
+                        if (data.response.artist.biographies[i].site === "last.fm") {
+                            siteId = data.response.artist.biographies[i];
+                            break;
+                        }
+                    }
+
+                    var bio = siteId.text;
+                    var url = siteId.url;
+                    var name = data.response.artist.name;
                     var country = data.response.artist.artist_location.country;
                     var location = data.response.artist.artist_location.location;
                     var songs = data.response.artist.songs;
 
+                    $('#name').html(name);
                     $('#bio').html(bio);
                     $('#url').attr("href", url );
                     $('#country').html(country);
                     $('#location').html(location);
 
-
-                    console.log(songs);
-
-                    songs.forEach(function(entry) {
-
-                        var song = entry.title;
-
-                        Array.prototype.song = function() {
-                            var songs = [];
-                            for (var i = 0; i < this.length; i++) {
-                                var current = this[i];
-                                if (song.indexOf(current) < 0) song.push(current);
-                            }
-                            return song;
-                        };
-
-                        var para = document.createElement("P");
-                        var t = document.createTextNode(song);
-                        para.appendChild(t);
-                        document.getElementById("songs").appendChild(para);
-                    });
 
                     $('#content').show();
                 }
