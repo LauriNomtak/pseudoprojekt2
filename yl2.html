@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+
+
+<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.11.3.min.js"></script>
+<script src="sortable.js"></script>
+<script src="search.js"></script>
+
+
+<body>
+
+<table style="table-layout: fixed; border-bottom: 0px" border="1" width="100%" cellspacing="0" cellpadding="5">
+
+    <tr>
+        <th><input type="text" id="Nimi" class="nimi" placeholder="Otsi..." onkeyup="doSearch()" /></th>
+        <th><input type="text" id="Linn" class="linn" placeholder="Otsi..." onkeyup="doSearch()" /></th>
+        <th><input type="text" id="Riik" class="riik" placeholder="Otsi..." onkeyup="doSearch()" /></th>
+        <th><input type="text" id="Email" class="email" placeholder="Otsi..." onkeyup="doSearch()" /></th>
+        <th><input type="text" id="ID" class="id" placeholder="Otsi..." onkeyup="doSearch()" /></th>
+    </tr>
+
+</table>
+
+<table style="table-layout: fixed" class="sortable" border="1" width="100%" cellspacing="0" cellpadding="5">
+
+    <thead>
+        <tr>
+            <th>Nimi</th>
+            <th>Linn</th>
+            <th>Riik</th>
+            <th>Email</th>
+            <th>ID</th>
+        </tr>
+    </thead>
+
+
+    <tbody id="dataTable" >
+
+
+
+
+    <tr>
+        <td>Josephine</td>
+        <td>Yaxley</td>
+        <td>Cook Islands</td>
+        <td>mauris.ipsum@eusemPellentesque.co.uk</td>
+        <td>1</td>
+    </tr>
+    <tr>
+        <td>Kerry</td>
+        <td>Viggianello</td>
+        <td>Congo, the Democratic Republic of the</td>
+        <td>nunc.sed@tinciduntDonec.ca</td>
+        <td>2</td>
+    </tr>
+    <tr>
+        <td>Francesca</td>
+        <td>Marburg</td>
+        <td>Albania</td>
+        <td>ut.dolor@magnis.org</td>
+        <td>3</td>
+    </tr>
+    <tr>
+        <td>Rachel</td>
+        <td>Knokke-Heist</td>
+        <td>Pakistan</td>
+        <td>in@Fusce.ca</td>
+        <td>4</td>
+    </tr>
+    <tr>
+        <td>Yoshio</td>
+        <td>Salvirola</td>
+        <td>Aruba</td>
+        <td>nonummy@magnisdisparturient.net</td>
+        <td>5</td>
+    </tr>
+    </tbody>
+</table>
+
+<style>
+
+
+
+</style>
+
+</body>
+</html>
+
+
+
